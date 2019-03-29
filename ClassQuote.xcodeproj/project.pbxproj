@@ -97,11 +97,10 @@
 		D5AC1123224EA96D0054C079 /* ClassQuote */ = {
 			isa = PBXGroup;
 			children = (
+				D5AC1154224EA9B10054C079 /* Controller */,
+				D5AC1153224EA9AB0054C079 /* View */,
+				D5AC1152224EA9A60054C079 /* Model */,
 				D5AC1124224EA96D0054C079 /* AppDelegate.swift */,
-				D5AC1126224EA96D0054C079 /* ViewController.swift */,
-				D5AC1128224EA96D0054C079 /* Main.storyboard */,
-				D5AC112B224EA96F0054C079 /* Assets.xcassets */,
-				D5AC112D224EA96F0054C079 /* LaunchScreen.storyboard */,
 				D5AC1130224EA96F0054C079 /* Info.plist */,
 			);
 			path = ClassQuote;
@@ -123,6 +122,31 @@
 				D5AC1146224EA9700054C079 /* Info.plist */,
 			);
 			path = ClassQuoteUITests;
+			sourceTree = "<group>";
+		};
+		D5AC1152224EA9A60054C079 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D5AC1153224EA9AB0054C079 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D5AC1128224EA96D0054C079 /* Main.storyboard */,
+				D5AC112B224EA96F0054C079 /* Assets.xcassets */,
+				D5AC112D224EA96F0054C079 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D5AC1154224EA9B10054C079 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D5AC1126224EA96D0054C079 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,7 +466,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xenox.ClassQuote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -460,7 +484,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.xenox.ClassQuote;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
