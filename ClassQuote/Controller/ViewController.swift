@@ -17,11 +17,41 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        getQuote()
     }
 
     @IBAction func didTapNewQuoteButton(_ sender: UIButton) {
+        getQuote()
     }
 
-}
+    private func getQuote() {
+        toggleActivityIndicator(shown: true)
 
+        QuoteService.shared.getQuote { (success, quote) in
+            self.toggleActivityIndicator(shown: false)
+
+            if success, let quote = quote {
+                self.updateQuote(quote: quote)
+            } else {
+                self.presentAlert()
+            }
+        }
+    }
+
+    private func toggleActivityIndicator(shown: Bool) {
+        newQuoteButton.isHidden = shown
+        activityIndicator.isHidden = !shown
+    }
+
+    private func updateQuote(quote: Quote) {
+        quoteLabel.text = quote.text
+        authorLabel.text = quote.author
+        imageView.image = UIImage(data: quote.imageData)
+    }
+
+    private func presentAlert() {
+        let alertVC = UIAlertController(title: "Error", message: "The quote download failed.", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alertVC, animated: true, completion: nil)
+    }
+}
