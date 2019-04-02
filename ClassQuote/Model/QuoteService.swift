@@ -14,15 +14,22 @@ class QuoteService {
 
     private var task: URLSessionTask?
 
+    private var quoteSession = URLSession(configuration: .default)
+    private var imageSession = URLSession(configuration: .default)
+
     private let quoteUrl = URL(string: "https://api.forismatic.com/api/1.0/")!
     private let imageUrl = URL(string: "https://source.unsplash.com/random/1000x1000")!
 
+    init(quoteSession: URLSession, imageSession: URLSession) {
+        self.quoteSession = quoteSession
+        self.imageSession = imageSession
+    }
+
     func getQuote(callback: @escaping (Bool, Quote?) -> Void) {
         let request = createQuoteRequest()
-        let session = URLSession(configuration: .default)
 
         task?.cancel()
-        task = session.dataTask(with: request) { (data, response, error) in
+        task = quoteSession.dataTask(with: request) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     return callback(false, nil)
@@ -41,8 +48,10 @@ class QuoteService {
                 self.getImage { (data) in
                     if let data = data {
                         let quote = Quote(text: text, author: author, imageData: data)
-                        callback(true, quote)
+                        return  callback(true, quote)
                     }
+
+                    callback(false, nil)
                 }
             }
         }
@@ -51,11 +60,8 @@ class QuoteService {
     }
 
     private func getImage(completionHandler: @escaping ((Data?) -> Void)) {
-        let session = URLSession(configuration: .default)
-        let request = URLRequest(url: imageUrl)
-
         task?.cancel()
-        task = session.dataTask(with: request) { (data, response, error) in
+        task = imageSession.dataTask(with: imageUrl) { (data, response, error) in
             DispatchQueue.main.async {
                 guard let data = data, error == nil else {
                     return completionHandler(nil)
